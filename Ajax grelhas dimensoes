@@ -1,0 +1,70 @@
+function addcart_grelhas(id){
+
+  var dim2 = $("div.sizes."+id+" div.on").attr("alt");
+  var dim1 = $("div.color"+id+"").attr("alt");
+  var add_dim2 ="";
+  var qtd_prod = $(".qtd_prod").val();
+  
+  if(typeof dim1 === "undefined" && typeof dim2 === "undefined") {   
+    $(".mensagem-add").css("display","block");
+    $(".alert-danger").show();
+    $("html, body").animate({ scrollTop: 0 }, "fast");
+
+  } else if(typeof dim1 === "undefined" && typeof dim2 != "undefined") {
+    $(".alert-danger").show();
+    $("html, body").animate({ scrollTop: 0 }, "fast");
+
+  } else if(typeof dim1 != "undefined" && typeof dim2 === "undefined") {
+    $(".mensagem-erro").css("display","block");
+    setTimeout(function(){ $(".mensagem-erro").css("display","none");}, 3000);
+
+  } else {
+    add_dim2 = "&dim1=" + dim1 + "&dim2=" + dim2;
+    var path_carrinho = "/ajax/cart/add/" + id + "&qtd=" + qtd_prod + add_dim2;
+    $.ajax({
+      url: path_carrinho,
+      async: false,
+      success: function(html) {
+        $(".msg-cart").css("display","block");
+        setTimeout(function(){ $(".msg-cart").css("display","none");}, 3000);
+        $("html, body").animate({ scrollTop: 0 }, "fast");
+        $("#cart").html(html);
+        $(".header--cart-popup").stop(true, true).slideDown();
+      }
+    });
+  }
+}
+
+
+function addwhishcart_grelhas(id){
+  var dim2 = $("div.sizes div.on").attr("alt");
+  var dim1 = $("div.color"+id+"").attr("alt");
+  var add_dim2 ="";
+  var qtd_prod = 1;
+  add_dim2 = "&dim1=" + dim1 + "&dim2=" + dim2;
+
+  if(typeof dim1 === "undefined" && typeof dim2 === "undefined") {   
+    $(".mensagem-add").css("display","block");
+    $(".alert-danger").show();
+    $("html, body").animate({ scrollTop: 0 }, "fast");
+
+  } else if(typeof dim1 === "undefined" && typeof dim2 != "undefined") {
+    $(".alert-danger").show();
+    $("html, body").animate({ scrollTop: 0 }, "fast");
+
+  } else if(typeof dim1 != "undefined" && typeof dim2 === "undefined") {
+    $(".mensagem-erro-fav").css("display","block");
+    $("html, body").animate({ scrollTop: 0 }, "fast");
+
+  } else {
+
+    var path_carrinho = "/ajax/area-de-cliente/wishlist/addtolist/" + id + "&qtd=" + qtd_prod + add_dim2;
+    $.ajax({
+      url: path_carrinho,
+      async: false,
+      success: function(html) {
+        window.location = "/area-de-cliente/wishlist/see/";
+      }
+    });
+  }
+}
