@@ -1,0 +1,72 @@
+.container-slide {
+  width: 780px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.slider-container {
+  height: 0;
+  overflow: hidden;
+  transition: height 400ms ease;
+}
+
+.slider-container .container-slide {
+  padding: 0;
+  position: relative;
+}
+
+.slider-container .inner {
+  position: relative;
+  transition: left 400ms ease 0s;
+}
+
+.slider-container .inner > .item {
+  float: left;
+}
+
+.slider-container .item > a {
+  display: block;
+}
+
+.slider-container .item img {
+  width: 100%;
+}
+
+.slider-container ol {
+  list-style: outside none none;
+  margin: 0;
+  padding: 12px 0 27px;
+  text-align: center;
+}
+
+.slider-container ol > li {
+  color: #00a7af;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 17px;
+  padding: 0 2px;
+}
+
+.slider-container > #carousel-primeira-pagina > a {
+  color: #fff;
+  font-size: 20px;
+  position: absolute;
+  text-decoration: none;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.slider-container > #carousel-primeira-pagina > a:hover,
+.slider-container > #carousel-primeira-pagina > a:focus {
+  color: #333;
+}
+
+.slider-container a[href='#left'] {
+  left: 0;
+}
+
+.slider-container a[href='#right'] {
+  right: 0;
+}
