@@ -1,0 +1,71 @@
+/*Gallery Images Start Click**********************************************************/
+$(".close-div-zoom").on("click", function(){
+  $(".div-zoom-product").css("display","none");
+});
+
+var flag = false;
+$(".zoom-detail").bind('touchstart click', function(){
+  if (!flag) {
+    flag = true;
+    setTimeout(function(){ flag = false; }, 100);
+    $(".div-zoom-product").css("display","block");
+  }
+
+  return false
+});
+
+/*Gallery Images
+  ********************************************************/  
+  if ( $(".more-views img").size() > 0 ) {    
+    var main_pic = $(".main-img").data("img");
+
+    $(".more-views img").each(function(){
+      var image_url = $(this).data("img");
+      if(image_url != undefined){
+        image_url = image_url.replace("//","/");
+        if ( image_url == main_pic ) {
+          $(this).parents(".gallery-pic").addClass("active");
+        }
+      }
+    });
+  }
+
+  $(".main-img img").elevateZoom({
+    zoomType: "inner",
+    cursor: "crosshair"
+  });
+
+
+  $(".more-views .item").click(function(){ 
+   
+    
+    var img = $('.main-img img');
+
+    // remover elevate zoom a tudo
+    $('.zoomContainer').remove();
+    img.removeData('elevateZoom');
+    img.removeData('zoomImage');
+
+    var image_selected = $(this).children("img").data("img");
+
+    console.log(image_selected);
+    
+    $(".main-img img").fadeOut("fast", function() {
+      $(this)
+        .attr("src", "/thumb/&w=650&h=650&zc=1&q=75&src=" + image_selected)
+        .fadeIn();
+
+      $(this)
+        .attr("data-zoom-image", image_selected);
+
+      $(this).elevateZoom({
+        zoomType: "inner",
+        cursor: "crosshair"
+      });   
+    });      
+
+    $(".more-views > div").removeClass("active");
+    $(this).parents(".gallery-pic").addClass("active");     
+
+    return false;
+  });
