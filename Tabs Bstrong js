@@ -1,0 +1,23 @@
+  $(".homepage-tabs .nav-link.crianca").click(function(){   
+    var tab_content = $(this).data("url");
+    var tab_content_tab = $(this).attr("href");
+  
+    if ( $(tab_content_tab).children("div").size() == 0 ) { 
+      // ler filtros
+      $.ajax({
+        type:"GET",
+        url: "/ajax" + tab_content,
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          if(textStatus == 'timeout') {
+            swal("Timeout!", "O pedido excedeu o tempo limite.", "warning");
+          } else if (textStatus == 'error'){
+            swal("Erro!", "Ocorreu um erro inesperado.", "error");
+          }
+        },
+        complete : function(data){
+          // colocar form
+          $(tab_content_tab).html(data.responseText);
+        }
+      });
+    }
+  });
