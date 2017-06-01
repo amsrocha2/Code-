@@ -1,0 +1,141 @@
+//Login 
+$("#area-reservada").on("click", function() {
+
+  verify_open_hamburger();
+
+  if($(".search-input").css("display")== "block"){
+    $(".header-search").click();
+  }
+
+  if($(".login_wrapper").is(":visible")== true){
+    $(".login_wrapper").stop(true, false).slideUp();
+    $(".icon-user").css("display","block");
+    $(".icon-close").css("display","none");
+  }
+  else{
+    $(".login_wrapper").stop(true, true).slideDown();
+    $("#Numberlist").stop(true, false).slideUp();
+    $(".icon-user").css("display","none");
+    $(".icon-close").css("display","block");
+  }
+});
+
+if ( $(".client-popup").length>0 ) {   
+  $("#area-reservada").attr("href","#menucliente");
+} 
+
+/* AFTER LOGIN
+===============================================*/    
+if( $("#area-reservada").attr("href")=='#menucliente'){
+
+ 
+  $("#area-reservada").on("click", function(event) {
+
+        if($(".search-input").css("display")== "block"){
+          $(".header-search").click();
+        }
+
+        if($(".client-popup").css("display")=="block"){
+            $(".icon-user").css("display","block");
+    		$(".icon-close").css("display","none");
+        }else{
+           $(".icon-user").css("display","none");
+    	   $(".icon-close").css("display","block");
+        }
+
+          event.preventDefault();
+          event.stopPropagation();
+          var el = $(".client-popup");
+          el.stop(true, true);
+          el.slideToggle(400);
+   });
+}
+
+/*Toggle Menu*********************************************************/
+$('.menu-hamburger').click(function(){
+
+  verify_open_notLog();
+  verify_open_logOut();
+  verify_open_cart();
+
+  if($(".search-input").css("display")== "block"){
+    $(".header-search").click();
+  }
+
+  $("#nav-icon4").toggleClass('open');
+  var el = $(".header-menu-principal");
+  el.slideToggle(400);
+});
+
+
+/* SEARCH SMALL DEVICES CLICK
+===============================================*/ 
+if ($(window).width() <= 992) {
+$(".header-search").on("click",function(){
+
+  verify_open_hamburger();
+  verify_open_notLog();
+  verify_open_logOut();
+  verify_open_cart();
+
+  var el_input = $(".search-input");
+  el_input.stop(true, true);
+  el_input.slideToggle(400);
+});
+}
+
+
+/* SEARCH LARGE DEVICES CLICK
+===============================================*/ 
+if ($(window).width() >= 992) {
+$(".icon-search").on("click", function(){
+  if($(".search-lg").css("display")=="none"){
+    $(".search-lg").css("display","block");
+  }else{
+    $(".search-lg").css("display","none");
+  }
+});
+}
+
+function verify_open_hamburger(){
+
+  if($(".header-menu-principal").css("display")== "block"){
+    $(".menu-hamburger").click();
+  }else{
+  }
+}
+
+$(".shopbag").on("click",function(){
+  verify_open_hamburger();
+  verify_open_notLog();
+  verify_open_logOut();
+
+  if($(".search-input").css("display")== "block"){
+    $(".header-search").click();
+  }
+});
+
+function verify_open_search(){
+  if($(".search-input").css("display")== "block"){
+    $(".header-search").on("click", function(e){
+      e.stopPropagation();
+    });
+  }
+}
+
+//Not Logged
+function verify_open_notLog(){
+  $(".login_wrapper").stop(true, false).slideUp();
+}
+
+//With LogIn
+function verify_open_logOut(){
+  $(".client-popup").stop(true, false).slideUp();
+}
+
+//CART IS OPEN
+function verify_open_cart(){
+  if ($("#cart .dropdown").hasClass("open")) {
+    $("#cart .shopbag").click();
+  }
+}
