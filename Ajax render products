@@ -1,0 +1,30 @@
+  /*Ajax render products*****************************************************/
+  $('.render-products').appear();
+  $(document.body).on('appear', '.render-products', function(e, $affected) {
+
+    if(j < (valueArray.length - 1)){
+
+      j++;
+
+      $.ajax({
+        type: 'get',
+        url: "/xtemplate" + valueArray[j], // home/
+        data: $(this).serialize(),
+        dataType: "html",
+        success: function (response) {
+          var found = $(response).filter(".container-list")
+          $(found).insertBefore(".render-products");
+        },
+        error: function() {
+          alert("Error");
+        }
+      });
+    }
+
+    $(document).ajaxStart(function () {
+      $("#loading").show();
+    }).ajaxStop(function () {
+      $("#loading").hide();
+    });
+
+  });
