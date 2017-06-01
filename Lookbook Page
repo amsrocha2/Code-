@@ -1,0 +1,94 @@
+function  get_col_nr(selector, classtoget, splitclasscatched){
+
+  /* põe o slide do lookbook dinamico */
+
+  var get = $.grep(selector.className.split(" "), function(v, i){
+    return v.indexOf(classtoget) === 0;
+  }).join();
+  var value = get.split(splitclasscatched)
+  return parseInt(value[value.length - 1]);
+
+}  
+
+// --- Lookbook 
+$.each($(".single_banner"), function(){
+
+  if($(this).hasClass("pequeno")){
+    $(this).addClass("col-md-3 col-sm-6 col-xs-12");
+  }
+
+  if($(this).hasClass("grande")){
+    $(this).addClass("col-md-6 col-sm-12 col-xs-12");
+  }
+
+});
+
+
+//Lookbookslider
+
+if($("#lookbookCarousel").length > 0){
+  var counter = 0;
+  var start = 0;
+  var count = 1;
+
+  var items = $("#lookbookCarousel .carousel-inner > div");
+
+
+  $.each($("#lookbookCarousel .carousel-inner > div"),function(index){
+
+  if($(window).width() >=992 && $(window).width() >= 768 ){
+  var value = get_col_nr($(this)[0], "col-md", "-"); 
+  counter += get_col_nr($(this)[0], "col-md", "-");
+}else if($(window).width() < 992 && $(window).width() >= 768 ){
+  var value = get_col_nr($(this)[0], "col-sm", "-"); 
+  counter += get_col_nr($(this)[0], "col-sm", "-");
+}else if($(window).width() < 768){
+  var value = get_col_nr($(this)[0], "col-xs", "-"); 
+  counter += get_col_nr($(this)[0], "col-xs", "-");
+}
+
+//var value = get_col_nr($(this)[0], "col-md", "-"); 
+//counter += get_col_nr($(this)[0], "col-md", "-");
+
+
+if($(this).is(':last-child'))
+{
+  var end = index+1;
+  items.slice(start, end).wrapAll("<div class='item' data-count='"+ count +"'></div>");
+  start = end;
+}else if( counter == 12){
+  var end = index+1;
+  items.slice(start, end).wrapAll("<div class='item' data-count='"+ count +"'></div>");
+  start = end;
+  counter = 0;
+}else if(( counter > 12)){
+  var end = index;
+  items.slice(start, end).wrapAll("<div class='item' data-count='"+ count +"'></div>");
+  start = end;
+  counter = value;
+}
+
+count++;
+
+$(".total-slide").text(index+1);	
+});	
+
+$("#lookbookCarousel .carousel-inner > div.item").first().addClass("active");
+}
+
+
+//Change number position slide
+$(".icon-arrow_right").on("click",function(){
+   setTimeout(clickSlide, 1000);
+});
+
+$(".icon-arrow_left").on("click",function(){
+  setTimeout(clickSlide, 1000);
+});
+
+function clickSlide(){
+  var count_slide = $("#lookbookCarousel .carousel-inner > div.item.active").attr("data-count");
+  $(".position-slide").text(count_slide);
+}
+
+
