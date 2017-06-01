@@ -1,0 +1,33 @@
+if($(".local_trim").length>0){
+  $.each( $(".local_trim"),function()
+  {
+  var text_local= $(this).text();
+  var i = 0, text_lenght = text_local.length;
+
+  for(i; i < text_lenght; i++) {
+  var text_local = text_local.replace(" ", "");
+}
+
+$(this).next().addClass(text_local);
+})
+}
+
+/* ACTIVE LOCATION CONTACTOS
+===============================================*/  
+$( ".row-contacto h3:first" ).addClass("active");   
+
+
+$(".row-contacto p.nome").click(function() {
+  $(".row-contacto p.nome").removeClass("active");
+  $(this).addClass("active");
+
+  var text_local= $(this).text();
+  var rua=text_local.replace(" ","");
+
+  var i = 0, text_lenght = text_local.length;
+  for(i; i < text_lenght; i++) {
+    var text_local = text_local.replace(" ", "");
+  } 
+  var src = $("."+text_local+" iframe").attr("src");
+  $(".map-contact iframe").attr("src", src);
+});
