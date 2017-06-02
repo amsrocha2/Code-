@@ -1,0 +1,12 @@
+.checkout-btn{
+    display: flex; 
+    /*flex-direction: column;*/
+  }
+
+  .checkout-btn > .btn-proceed-checkout{
+    order: 2;
+  }
+
+  .checkout-btn > .btn-back-checkout{
+    order: 1;
+  }
