@@ -1,0 +1,18 @@
+  //Atribuição do numero da ordenação
+  $(".class_bebe").parent().parent().attr("data-index",1);
+  $(".class_crianca").parent().parent().attr("data-index",2);
+  $(".class_junior").parent().parent().attr("data-index",3);
+  $(".class_senhora").parent().parent().attr("data-index",4);
+  $(".class_homem").parent().parent().attr("data-index",5);
+  $(".link_todos").parent().attr("data-index",6);
+  $(".class_unissexo").parent().parent().attr("data-index",97);
+  $("span[class='class_junior/unissexo Júnior/Unissexo']").parent().parent().attr("data-index",98);
+  $(".class_bolsa").parent().parent().attr("data-index",99);
+  
+  //Função sort
+  $(".categorias ul li").sort(sort_li).appendTo('.categorias ul');
+  
+  //Reordenação
+  function sort_li(a, b){
+    return ($(b).attr('data-index')) < ($(a).attr('data-index')) ? 1 : -1;    
+}
